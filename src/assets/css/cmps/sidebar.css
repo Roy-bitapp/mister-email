@@ -1,0 +1,65 @@
+.sidebar {
+  width: 60px; /* Collapsed width */
+  height: 100vh;
+  padding: 10px 0;
+  overflow: hidden;
+  transition: width 0.3s ease, border-radius 0.3s ease, font-size 0.3s ease;
+  position: relative;
+  background-color: #f5f5f5;
+}
+
+.sidebar.expanded{
+  width: 250px !important; 
+}
+
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #333;
+  font-size: 14px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  cursor: url("/src/assets/imgs/sidebar/clicker.png"), auto;
+
+}
+
+.sidebar-item:hover{
+  background-color: #e0e0e0;
+}
+
+.menu-icon{
+  max-width: 30px;
+}
+
+.sidebar-item-text{
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  color: #333;
+}
+
+.compose-button {
+  width:40px;
+  border-radius: 15px;
+  transition: width 0.3s ease; 
+  height: 45px;
+  border: none;
+  background-color: lightblue;
+  cursor: url("/src/assets/imgs/sidebar/clicker.png"), auto;
+}
+
+.compose-button.expanded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  border-radius: 10px;
+}
+
+.compose-icon{
+  max-height: 35px;
+  max-width: 20px;
+}
