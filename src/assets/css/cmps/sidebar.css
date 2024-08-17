@@ -9,9 +9,8 @@
 }
 
 .sidebar.expanded{
-  width: 250px !important; 
+  width: 275px !important;
 }
-
 
 .sidebar-item {
   display: flex;
@@ -19,7 +18,8 @@
   padding: 10px;
   color: #333;
   font-size: 14px;
-  border-radius: 4px;
+  border-radius: 30px;
+  max-height: 30px;
   white-space: nowrap;
   overflow: hidden;
   transition: background-color 0.3s ease;
@@ -49,6 +49,7 @@
   border: none;
   background-color: lightblue;
   cursor: url("/src/assets/imgs/sidebar/clicker.png"), auto;
+  margin-left: 12px;
 }
 
 .compose-button.expanded {
