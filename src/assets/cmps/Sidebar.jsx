@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import compose from "/src/assets/imgs/sidebar/compose.png";
 import draft from "/src/assets/imgs/sidebar/draft.png";
 import inbox from "/src/assets/imgs/sidebar/inbox.png";
@@ -11,39 +10,54 @@ import trashExpanded from "/src/assets/imgs/sidebar/trashExpanded.png";
 
 
 
-export function Sidebar() {
+export function Sidebar({ expandSidebar, isExpanded, setFilterBy, filterBy, onComposeEmailClicked }) {
 
-  const [isExpanded, setIsExpanded] = useState(false);
+  function onInboxClick() {
+    const updatedFilterBy = { ...filterBy, status: 'inbox' };
+    setFilterBy(updatedFilterBy)
+  }
 
-  function toggleSidebar() {
-    setIsExpanded(isExpanded => !isExpanded);
-  };
+  function onStarredClick() {
+    console.log("hi")
+    const updatedFilterBy = { ...filterBy, status: 'star'};
+    setFilterBy(updatedFilterBy)
+  }
+
+  function onSentClick() {
+    const updatedFilterBy = { ...filterBy, status: 'sent'};
+    setFilterBy(updatedFilterBy)
+  }
+
+  function onTrashClick() {
+    const updatedFilterBy = { ...filterBy, status: 'trash'};
+    setFilterBy(updatedFilterBy)
+  }
 
   return (
     <div
       className={`sidebar ${isExpanded ? 'expanded' : ''}`}
-      onMouseEnter={toggleSidebar}
-      onMouseLeave={toggleSidebar}>
+      onMouseEnter={expandSidebar}
+      onMouseLeave={expandSidebar}>
 
       <button
-        className={`compose-button ${isExpanded ? 'expanded' : ''}`} >
+        className={`compose-button ${isExpanded ? 'expanded' : ''}`} onClick={onComposeEmailClicked} >
         <img className='compose-icon' src={compose} alt="" />
         {isExpanded && <div className="compose-button-text">Compose</div>}
       </button>
 
-      <div className="sidebar-item">
+      <div  onClick={ onInboxClick }  className="sidebar-item">
         <img className="menu-icon" src={inbox} alt="" />
         {isExpanded && <div className="sidebar-item-text">Inbox</div>}
       </div>
 
-      <div className="sidebar-item">
+      <div onClick={ onStarredClick } className="sidebar-item">
         <img className="menu-icon" src={star} alt="" />
         {isExpanded && <div className="sidebar-item-text">Starred</div>}
 
       </div>
-      <div className="sidebar-item">
+      <div onClick={ onSentClick } className="sidebar-item">
         <img className="menu-icon" src={isExpanded ? sentExpanded : sent} alt="" />
-        {isExpanded && <div className="sidebar-item-text">Sent</div>}
+        {isExpanded && <div className="sidebar-item-text"  >Sent</div>}
 
       </div>
       <div className="sidebar-item">
@@ -51,7 +65,7 @@ export function Sidebar() {
         {isExpanded && <div className="sidebar-item-text">Drafts</div>}
 
       </div>
-      <div className="sidebar-item">
+      <div  onClick={ onTrashClick }  className="sidebar-item">
         <img className="menu-icon" src={isExpanded ? trashExpanded : trash} alt="" />
         {isExpanded && <div className="sidebar-item-text">Trash</div>}
       </div>

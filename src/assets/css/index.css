@@ -1,8 +1,6 @@
 /*  Basics */
 @import "basics/base.css";
-@import "basics/helpers.css";
-@import "basics/layout.css";
-@import "basics/animations.css";
+
 
 /* Pages */
 @import "./pages/home.css";
@@ -10,6 +8,15 @@
 /* Components */
 @import "./cmps/app-header.css";
 @import "./cmps/sidebar.css";
+@import "./cmps/email-index.css";
+@import "./cmps/emails-list.css";
+@import "./cmps/emails-preview.css";
+@import "./cmps/order-by.css";
+@import "./cmps/email-details.css";
+@import "./cmps/compose-email.css";
+
+
+
 
 
 

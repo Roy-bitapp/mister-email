@@ -1,0 +1,31 @@
+.filters-container{
+  display: flex;
+  gap: 100px;
+  align-items: center;
+  width: 500px;
+  left: 105px;
+  top:110px;
+  position: absolute;
+}
+
+.filters-container.expanded{
+  left: 300px;
+}
+
+.filter{
+  height: 30px;
+  border-radius: 25px;
+  border: 1px solid;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.arrow-icon{
+  height: 15px;
+  position: relative;
+  left:0;
+}

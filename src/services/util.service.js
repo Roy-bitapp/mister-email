@@ -2,7 +2,8 @@
 export const utilService = {
     makeId,
     saveToStorage,
-    loadFromStorage
+    loadFromStorage,
+    deleteFromStorage
 }
 
 function makeId(length = 5) {
@@ -14,11 +15,21 @@ function makeId(length = 5) {
     return text;
 }
 
-function saveToStorage(key, value) {
-    localStorage[key] = JSON.stringify(value);
+function saveToStorage(key, value, delay= 200) {
+    try{
+        localStorage[key] = JSON.stringify(value);
+        return new Promise(resolve => setTimeout(() => resolve(true), delay))
+    }
+    catch{
+        console.log("error saving")
+    }
 }
 
 function loadFromStorage(key, defaultValue = null) {
     var value = localStorage[key] || defaultValue;
     return JSON.parse(value);
+}
+
+function deleteFromStorage(key) {
+    localStorage.removeItem(key); // This removes the item from localStorage
 }

@@ -1,0 +1,15 @@
+
+.emails-list-container{
+  margin-left:70px;
+  margin-top: -850px;
+  width: 100%;
+}
+
+.emails-list-container.expanded{
+  margin-left:270px;
+  margin-top: -860px;
+}
+
+.no-marker-list{
+  list-style: none; 
+}

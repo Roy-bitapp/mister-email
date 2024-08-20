@@ -1,0 +1,62 @@
+.email-row{
+  border-bottom: 1px solid rgba(100, 121, 143, 0.122);
+  height: 40px;
+  display: flex;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.email-row.read{
+  background-color: #eeeeee;
+}
+
+.email-row.filtered{
+  display: none;
+}
+
+.email-row:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  cursor:pointer;
+}
+
+.email-preview-text{
+  gap: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.email{
+  width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Display ellipsis */
+}
+
+.email-row:hover{
+  background-color: rgba(100, 121, 143, 0.122);
+}
+
+.first-item{
+  border-top: 1px solid rgba(100, 121, 143, 0.122);
+}
+
+.email-preview-icons{
+  display: flex;
+  max-height: 28px;
+  gap: 10px;
+  margin-right: 15px;
+  padding: 4px;
+}
+
+
+.right-side-icons{
+  max-height: 25px;
+  margin-left:200px;
+  margin-right:75px;
+  display: flex;
+  gap:10px;
+}

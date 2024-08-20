@@ -3,13 +3,14 @@
   height: 100vh;
   padding: 10px 0;
   overflow: hidden;
-  transition: width 0.3s ease, border-radius 0.3s ease, font-size 0.3s ease;
-  position: relative;
-  background-color: #f5f5f5;
+  transition: width 0.3s ease, font-size 0.3s ease;
+  background-color: #eeeeee;
 }
 
 .sidebar.expanded{
-  width: 275px !important;
+  width: 275px;
+  z-index: 1100;
+  position: relative;
 }
 
 .sidebar-item {
@@ -23,7 +24,7 @@
   white-space: nowrap;
   overflow: hidden;
   transition: background-color 0.3s ease;
-  cursor: url("/src/assets/imgs/sidebar/clicker.png"), auto;
+  cursor: pointer;
 
 }
 
@@ -48,8 +49,9 @@
   height: 45px;
   border: none;
   background-color: lightblue;
-  cursor: url("/src/assets/imgs/sidebar/clicker.png"), auto;
+  cursor: pointer;
   margin-left: 12px;
+  margin-bottom: 5px;
 }
 
 .compose-button.expanded {

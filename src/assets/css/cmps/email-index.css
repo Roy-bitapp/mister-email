@@ -1,0 +1,16 @@
+
+.email-container{
+  background-color: white;
+  display: flex;
+}
+
+
+.order-by-section{
+  margin-left: 200px;
+  width:200px;
+  left: 20%;
+}
+
+.sidebar-section{
+  border-radius: 25px;
+}
