@@ -1,10 +1,10 @@
 .sidebar {
-  width: 60px; /* Collapsed width */
-  height: 100vh;
+  height: 100%;
   padding: 10px 0;
   overflow: hidden;
   transition: width 0.3s ease, font-size 0.3s ease;
   background-color: #eeeeee;
+  z-index: 1100;
 }
 
 .sidebar.expanded{
@@ -13,13 +13,18 @@
   position: relative;
 }
 
+.inbox-number {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
 .sidebar-item {
   display: flex;
   align-items: center;
   padding: 10px;
   color: #333;
   font-size: 14px;
-  border-radius: 30px;
+  border-radius: 20px;
   max-height: 30px;
   white-space: nowrap;
   overflow: hidden;
@@ -40,6 +45,10 @@
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   color: #333;
+}
+
+.sidebar-item.selected{
+  background-color: #a8c7fa;
 }
 
 .compose-button {

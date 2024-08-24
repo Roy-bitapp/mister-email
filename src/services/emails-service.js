@@ -74,7 +74,7 @@ function isFiltered(email, filterBy, loggedinUser) {
         return (email.to != loggedinUser.email || email.removedAt)
     
     if (filterBy.status === 'sent') 
-        return email.from != loggedinUser.email;
+        return (email.from != loggedinUser.email && !email.removedAt);
     
     if (filterBy.status === 'star')
         return !email.isStarred;

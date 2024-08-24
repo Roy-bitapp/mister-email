@@ -1,7 +1,7 @@
 import { EmailPreview } from "./EmailPreview";
 
 
-export function EmailsList({ emails, isExpanded, updateEmail, checkFiltered, getEmailById }) {
+export function EmailsList({ emails, isExpanded, updateEmail, checkFiltered }) {
   return (
     <div className={`emails-list-container ${isExpanded ? 'expanded' : ''}`}>
       <ul className="no-marker-list">
@@ -9,7 +9,10 @@ export function EmailsList({ emails, isExpanded, updateEmail, checkFiltered, get
           <li
             key={email.id}
             className={index === 0 ? 'first-item' : ''}>
-            <EmailPreview email={email} updateEmail={updateEmail} checkFiltered={checkFiltered}/>
+            <EmailPreview
+              email={email}
+              updateEmail={updateEmail}
+              checkFiltered={checkFiltered} />
           </li>)}
       </ul>
     </div>)

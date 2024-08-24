@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { utilService } from '../../services/util.service';
 
-export function ComposeEmail({closeComposeEmail, setEmailsList, emailsList }) {
+export function ComposeEmail({closeComposeEmail, setEmailsList, emailsList, addEmail }) {
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
@@ -9,16 +9,17 @@ export function ComposeEmail({closeComposeEmail, setEmailsList, emailsList }) {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent default form submission behavior
-    const newEmail =   { id: utilService.makeId(), 
+    const newEmail =   { 
+      id: utilService.makeId(), 
       subject: subject, 
       body: body, 
       isRead: false, 
       isStarred: false, 
       sentAt: Date.now(), 
       removedAt: null,
-      from: 'momo@momo.com', to: to }
+      from: 'user@appsus.com', to: to }
 
-      setEmailsList([...emailsList, newEmail])
+      addEmail(newEmail)
       closeComposeEmail()
 };
 

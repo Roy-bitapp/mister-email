@@ -1,5 +1,5 @@
 /*  Basics */
-@import "basics/base.css";
+@import "./base.css";
 
 
 /* Pages */
@@ -12,8 +12,8 @@
 @import "./cmps/emails-list.css";
 @import "./cmps/emails-preview.css";
 @import "./cmps/order-by.css";
-@import "./cmps/email-details.css";
 @import "./cmps/compose-email.css";
+@import "./cmps/email-details.css"
 
 
 

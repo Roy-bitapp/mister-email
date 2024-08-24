@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import compose from "/src/assets/imgs/sidebar/compose.png";
 import draft from "/src/assets/imgs/sidebar/draft.png";
 import inbox from "/src/assets/imgs/sidebar/inbox.png";
@@ -7,68 +8,46 @@ import star from "/src/assets/imgs/sidebar/star.png";
 import trash from "/src/assets/imgs/sidebar/trash.png";
 import trashExpanded from "/src/assets/imgs/sidebar/trashExpanded.png";
 
+const FILTERS = {
+  inbox: { icon: inbox, label: 'Inbox' },
+  star: { icon: star, label: 'Starred' },
+  sent: { icon: sent, iconExpanded: sentExpanded, label: 'Sent' },
+  trash: { icon: trash, iconExpanded: trashExpanded, label: 'Trash' }
+};
 
+export function Sidebar({ inboxNumber, isExpanded, setFilterBy, filterBy, onComposeEmailClicked }) {
+  const [selectedFilter, setSelectedFilter] = useState(filterBy.status);
 
-
-export function Sidebar({ expandSidebar, isExpanded, setFilterBy, filterBy, onComposeEmailClicked }) {
-
-  function onInboxClick() {
-    const updatedFilterBy = { ...filterBy, status: 'inbox' };
-    setFilterBy(updatedFilterBy)
-  }
-
-  function onStarredClick() {
-    console.log("hi")
-    const updatedFilterBy = { ...filterBy, status: 'star'};
-    setFilterBy(updatedFilterBy)
-  }
-
-  function onSentClick() {
-    const updatedFilterBy = { ...filterBy, status: 'sent'};
-    setFilterBy(updatedFilterBy)
-  }
-
-  function onTrashClick() {
-    const updatedFilterBy = { ...filterBy, status: 'trash'};
-    setFilterBy(updatedFilterBy)
+  function onFilterClick(filterType) {
+    setFilterBy({ ...filterBy, status: filterType });
+    setSelectedFilter(filterType);
   }
 
   return (
-    <div
-      className={`sidebar ${isExpanded ? 'expanded' : ''}`}
-      onMouseEnter={expandSidebar}
-      onMouseLeave={expandSidebar}>
-
+    <div>
       <button
-        className={`compose-button ${isExpanded ? 'expanded' : ''}`} onClick={onComposeEmailClicked} >
-        <img className='compose-icon' src={compose} alt="" />
+        className={`compose-button ${isExpanded ? 'expanded' : ''}`}
+        onClick={onComposeEmailClicked}
+      >
+        <img className='compose-icon' src={compose} alt="Compose" />
         {isExpanded && <div className="compose-button-text">Compose</div>}
       </button>
 
-      <div  onClick={ onInboxClick }  className="sidebar-item">
-        <img className="menu-icon" src={inbox} alt="" />
-        {isExpanded && <div className="sidebar-item-text">Inbox</div>}
-      </div>
-
-      <div onClick={ onStarredClick } className="sidebar-item">
-        <img className="menu-icon" src={star} alt="" />
-        {isExpanded && <div className="sidebar-item-text">Starred</div>}
-
-      </div>
-      <div onClick={ onSentClick } className="sidebar-item">
-        <img className="menu-icon" src={isExpanded ? sentExpanded : sent} alt="" />
-        {isExpanded && <div className="sidebar-item-text"  >Sent</div>}
-
-      </div>
-      <div className="sidebar-item">
-        <img className="menu-icon" src={draft} alt="" />
-        {isExpanded && <div className="sidebar-item-text">Drafts</div>}
-
-      </div>
-      <div  onClick={ onTrashClick }  className="sidebar-item">
-        <img className="menu-icon" src={isExpanded ? trashExpanded : trash} alt="" />
-        {isExpanded && <div className="sidebar-item-text">Trash</div>}
-      </div>
+      {Object.keys(FILTERS).map((filterKey) => {
+        const { icon, iconExpanded, label } = FILTERS[filterKey];
+        const isSelected = filterKey === selectedFilter;
+        return (
+          <div
+            key={filterKey}
+            onClick={() => onFilterClick(filterKey)}
+            className={`sidebar-item ${isSelected ? 'selected' : ''}`}
+          >
+            <img className="menu-icon" src={isExpanded && iconExpanded ? iconExpanded : icon} alt={label} />
+            {isExpanded && <div className="sidebar-item-text">{label}</div>}
+            {filterKey === 'inbox' && isExpanded && <span className="inbox-number"><strong>{inboxNumber}</strong></span>}
+          </div>
+        );
+      })}
     </div>
-  )
+  );
 }

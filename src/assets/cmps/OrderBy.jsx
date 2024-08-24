@@ -6,8 +6,8 @@ import arrowUp from "/src/assets/imgs/emails/arrowUp.png";
 
 export function OrderBy({ isExpanded, orderByDate, orderBySubject}) {
 
-  const [orderByDateActivated, setOrderByDate] = useState(false);
-  const [orderBySubjectActivated, setOrderBySubject] = useState(false);
+  const [orderByDateActivated, setOrderByDate] = useState(true);
+  const [orderBySubjectActivated, setOrderBySubject] = useState(true);
 
   function toggleFilter(orderByType) {
     orderByType === 'date' ? setOrderByDate(orderBy => !orderBy) : setOrderBySubject(orderBy => !orderBy)

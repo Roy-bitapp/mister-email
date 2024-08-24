@@ -9,9 +9,11 @@ import { ComposeEmail } from "../assets/cmps/ComposeEmail";
 
 export function EmailIndex() {
   const [emailsList, setEmailsList] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [inboxNumber, setInboxNumber] = useState(null);
   const [isComposeEmailOpen, setIsComposeEmailOpen] = useState(false);
   const [filterBy, setFilterBy] = useState({ status: 'inbox', txt: '', isRead: false });
+  // const currentEmails = useRef()
   const navigate = useNavigate();
 
   const loggedinUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
@@ -27,6 +29,7 @@ export function EmailIndex() {
   async function loadEmails(filterBy, loggedinUser) {
     const emails = await emailsService.getEmails(filterBy, loggedinUser)
     setEmailsList(emails)
+    setInboxNumber(emails.filter(email => !email.removedAt).length)
   }
 
   function expandSidebar() {
@@ -41,7 +44,7 @@ export function EmailIndex() {
     setIsComposeEmailOpen(false)
   }
 
-  function orderByDate(isAscending){
+  function orderByDate(isAscending) {
     const sortedEmails = emailsList.sort((a, b) => isAscending ? a.sentAt - b.sentAt : b.sentAt - a.sentAt)
     setEmailsList([...sortedEmails])
   }
@@ -65,17 +68,32 @@ export function EmailIndex() {
         <OrderBy isExpanded={isExpanded} orderByDate={orderByDate} orderBySubject={orderBySubject} />
       </section>
       <Outlet />
-      <section className="sidebar-section">
+      <section
+        onMouseEnter={expandSidebar}
+        onMouseLeave={expandSidebar}
+        className={`sidebar ${isExpanded ? 'expanded' : ''}`}>
         <Sidebar
-          expandSidebar={expandSidebar}
+          inboxNumber={inboxNumber}
           isExpanded={isExpanded}
           setFilterBy={setFilterBy}
           filterBy={filterBy}
           onComposeEmailClicked={onComposeEmailClicked}
         />
       </section>
-      <EmailsList emails={emailsList} isExpanded={isExpanded} updateEmail={updateEmail} checkFiltered={checkFiltered} />
-      {isComposeEmailOpen && <ComposeEmail closeComposeEmail={closeComposeEmail} setEmailsList={setEmailsList} emailsList={emailsList} />}
+      <section className="emails-list-section">
+        <EmailsList
+          emails={emailsList}
+          isExpanded={isExpanded}
+          updateEmail={updateEmail}
+          checkFiltered={checkFiltered} />
+        {isComposeEmailOpen && 
+        <ComposeEmail
+          closeComposeEmail={closeComposeEmail}
+          setEmailsList={setEmailsList}
+          emailsList={emailsList}
+          addEmail={addEmail}
+        />}
+      </section>
     </div>
   )
 
@@ -84,15 +102,25 @@ export function EmailIndex() {
       changedEmail.id === email.id ? { ...email, ...changedEmail } : email
     );
     const saved = await emailsService.save(newEmailsList);
-    if (saved)
+    if (saved) {
       setEmailsList([...newEmailsList]);
+      setInboxNumber(newEmailsList.filter(email => !email.removedAt).length)
+    }
+  }
+
+  async function addEmail(newEmail) {
+    const saved = await emailsService.save([newEmail, ...emailsList]);
+    if (saved) {
+      setEmailsList([newEmail, ...emailsList]);
+      setInboxNumber(emailsList.filter(email => !email.removedAt).length)
+    }
   }
 
   function checkFiltered(email) {
     return emailsService.isFiltered(email, filterBy, loggedinUser)
   }
 
-  async function getFilteredEmailsByText(text){
+  async function getFilteredEmailsByText(text) {
     console.log(text)
     const filteredEmails = await emailsService.getEmailsByText(emailsList, text)
     setEmailsList([...filteredEmails])

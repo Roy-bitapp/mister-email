@@ -1,16 +1,46 @@
 
 .email-container{
-  background-color: white;
-  display: flex;
+  grid-area: main;
 }
 
 
 .order-by-section{
-  margin-left: 200px;
-  width:200px;
-  left: 20%;
+  grid-area: order-by;
+  position: relative;
+  margin-left: 30px;
+  border-radius: 35px;
 }
 
-.sidebar-section{
-  border-radius: 25px;
+.sidebar{
+  grid-area: sidebar;
+  position: relative;
+  top:0;
+  width: 70px;
+  padding-left: 17px;
+}
+
+.sidebar.expanded{
+  width: 275px;
+}
+
+.emails-index-section{
+  display: grid;
+  grid-template-areas:
+  "header header header"
+  "sidebar order-by order-by"
+  "sidebar main main";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto 1fr;
+  height: 100%;
+  width: 100%;
+  transition: grid-template-columns 0.3s ease;
+}
+
+.header-section{
+  grid-area: header;
+}
+
+.email-list-section {
+  grid-area: main;
+  z-index: -1;
 }
