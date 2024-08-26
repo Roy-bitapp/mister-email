@@ -26,6 +26,46 @@ export function EmailIndex() {
     navigate('/email-index/');
   }, [filterBy])
 
+  if (!emailsList) return <div>Loading emails...</div>
+  return (
+    <div className="emails-index-section">
+      <section className="header-section">
+        <AppHeader isExpanded={isExpanded} setIsExpanded={setIsExpanded} updateFilterByText={updateFilterByText} />
+      </section>
+      <section className="order-by-section">
+        <OrderBy isExpanded={isExpanded} orderByDate={orderByDate} orderBySubject={orderBySubject} />
+      </section>
+      <Outlet />
+      <section
+        onMouseEnter={expandSidebar}
+        onMouseLeave={expandSidebar}
+        className={`sidebar ${isExpanded ? 'expanded' : ''}`}>
+        <Sidebar
+          inboxNumber={inboxNumber}
+          isExpanded={isExpanded}
+          setFilterBy={setFilterBy}
+          filterBy={filterBy}
+          onComposeEmailClicked={onComposeEmailClicked}
+        />
+      </section>
+      <section className="emails-list-section">
+        <EmailsList
+          emails={emailsList}
+          isExpanded={isExpanded}
+          updateEmail={updateEmail}
+          checkFiltered={checkFiltered} />
+        {isComposeEmailOpen &&
+          <ComposeEmail
+            closeComposeEmail={closeComposeEmail}
+            setEmailsList={setEmailsList}
+            emailsList={emailsList}
+            addEmail={addEmail}
+          />}
+      </section>
+    </div>
+  )
+
+
   async function loadEmails(filterBy, loggedinUser) {
     const emails = await emailsService.getEmails(filterBy, loggedinUser)
     setEmailsList(emails)
@@ -58,44 +98,6 @@ export function EmailIndex() {
     setEmailsList([...sortedEmails]);
   }
 
-  if (!emailsList) return <div>Loading emails...</div>
-  return (
-    <div className="emails-index-section">
-      <section className="header-section">
-        <AppHeader isExpanded={isExpanded} setIsExpanded={setIsExpanded} updateFilterByText={updateFilterByText} />
-      </section>
-      <section className="order-by-section">
-        <OrderBy isExpanded={isExpanded} orderByDate={orderByDate} orderBySubject={orderBySubject} />
-      </section>
-      <Outlet />
-      <section
-        onMouseEnter={expandSidebar}
-        onMouseLeave={expandSidebar}
-        className={`sidebar ${isExpanded ? 'expanded' : ''}`}>
-        <Sidebar
-          inboxNumber={inboxNumber}
-          isExpanded={isExpanded}
-          setFilterBy={setFilterBy}
-          filterBy={filterBy}
-          onComposeEmailClicked={onComposeEmailClicked}
-        />
-      </section>
-      <section className="emails-list-section">
-        <EmailsList
-          emails={emailsList}
-          isExpanded={isExpanded}
-          updateEmail={updateEmail}
-          checkFiltered={checkFiltered} />
-        {isComposeEmailOpen && 
-        <ComposeEmail
-          closeComposeEmail={closeComposeEmail}
-          setEmailsList={setEmailsList}
-          emailsList={emailsList}
-          addEmail={addEmail}
-        />}
-      </section>
-    </div>
-  )
 
   async function updateEmail(changedEmail) {
     let newEmailsList = emailsList.map(email =>
@@ -121,6 +123,6 @@ export function EmailIndex() {
   }
 
   async function updateFilterByText(text) {
-    setFilterBy({...filterBy, text: text})
+    setFilterBy({ ...filterBy, text: text })
   }
 }
