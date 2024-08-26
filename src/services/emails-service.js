@@ -70,7 +70,7 @@ function isFiltered(email, filterBy, loggedinUser) {
 
     if(filterBy.text){
         const txtLower = filterBy.text.toLowerCase();
-        return(
+        return!(
             email.subject.toLowerCase().includes(txtLower) ||
             email.body.toLowerCase().includes(txtLower) ||
             email.from.toLowerCase().includes(txtLower)
