@@ -7,7 +7,7 @@ import apps from "/src/assets/imgs/header/apps.png";
 import menu from "/src/assets/imgs/header/menu.png";
 import searchOptions from "/src/assets/imgs/header/searchOptions.png";
 
-export function AppHeader({ setIsExpanded, getFilteredEmailsByText }) {
+export function AppHeader({ setIsExpanded, updateFilterByText }) {
   const [searchText, setSearchText] = useState('');
 
   // Handle input changes
@@ -19,7 +19,7 @@ export function AppHeader({ setIsExpanded, getFilteredEmailsByText }) {
   // Handle form submission
   const onSearchTextSubmit = (ev) => {
     ev.preventDefault();
-    getFilteredEmailsByText(searchText);
+    updateFilterByText(searchText);
   };
 
   return (

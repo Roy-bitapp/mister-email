@@ -7,7 +7,6 @@ export const emailsService = {
     save,
     isFiltered,
     getEmailById,
-    getEmailsByText
 }
 
 const STORAGE_KEY = 'emails'
@@ -39,7 +38,6 @@ async function getEmailById(emailId) {
 
 function _generateEmails() {
     let emails = utilService.loadFromStorage(STORAGE_KEY)
-
     if (!emails || !emails.length) {
         emails = [
             { id: utilService.makeId(), subject: 'Welcome to Gmail!', body: 'Hope this works', isRead: false, isStarred: false, sentAt: Date.now() - 1000000, removedAt: null, from: 'momo@momo.com', to: 'user@appsus.com' },
@@ -70,6 +68,15 @@ function _generateEmails() {
 
 function isFiltered(email, filterBy, loggedinUser) {
 
+    if(filterBy.text){
+        const txtLower = filterBy.text.toLowerCase();
+        return(
+            email.subject.toLowerCase().includes(txtLower) ||
+            email.body.toLowerCase().includes(txtLower) ||
+            email.from.toLowerCase().includes(txtLower)
+        )
+    }
+
     if (!filterBy.status || filterBy.status === 'inbox') 
         return (email.to != loggedinUser.email || email.removedAt)
     
@@ -84,21 +91,20 @@ function isFiltered(email, filterBy, loggedinUser) {
 }
 
 
-async function getEmailsByText(emails, text){
+// async function getEmailsByText(emails, text){
 
-    if(text == '')
-        return await getEmails()
+//     if(text == '')
+//         return await getEmails()
 
-    const txtLower = text.toLowerCase();
     
-    const filteredEmails = emails.filter(email =>
-        email.subject.toLowerCase().includes(txtLower) ||
-        email.body.toLowerCase().includes(txtLower) ||
-        email.from.toLowerCase().includes(txtLower)
-    );
+//     const filteredEmails = emails.filter(email =>
+//         email.subject.toLowerCase().includes(txtLower) ||
+//         email.body.toLowerCase().includes(txtLower) ||
+//         email.from.toLowerCase().includes(txtLower)
+//     );
 
-    return filteredEmails
-}
+//     return filteredEmails
+// }
 
 
 

@@ -62,7 +62,7 @@ export function EmailIndex() {
   return (
     <div className="emails-index-section">
       <section className="header-section">
-        <AppHeader isExpanded={isExpanded} setIsExpanded={setIsExpanded} getFilteredEmailsByText={getFilteredEmailsByText} />
+        <AppHeader isExpanded={isExpanded} setIsExpanded={setIsExpanded} updateFilterByText={updateFilterByText} />
       </section>
       <section className="order-by-section">
         <OrderBy isExpanded={isExpanded} orderByDate={orderByDate} orderBySubject={orderBySubject} />
@@ -120,9 +120,7 @@ export function EmailIndex() {
     return emailsService.isFiltered(email, filterBy, loggedinUser)
   }
 
-  async function getFilteredEmailsByText(text) {
-    console.log(text)
-    const filteredEmails = await emailsService.getEmailsByText(emailsList, text)
-    setEmailsList([...filteredEmails])
+  async function updateFilterByText(text) {
+    setFilterBy({...filterBy, text: text})
   }
 }
